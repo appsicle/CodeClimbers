@@ -8,6 +8,7 @@
 </template>
 
 <script>
+  import db from '../Firebase.js'
     export default {
         data() {
             return {
@@ -15,10 +16,28 @@
             }
 
         },
+        mounted(){
+          var roomId = parseInt(Math.random() * 1000000);
+          // db.ref()
+          db.ref('rooms/' + roomId).set({
+            id: roomId,
+            gamestate: 'WAITING',
+            Users: {
+                user: {
+                    id: 1234
+                },
+            },
+
+            code: 'hi',
+          });
+
+        },
         methods: {
             newRoomObj() {
-              // var roomId = Math.random() * 1000000
-              // firsebase.database().ref('rooms/' + roomId).set({
+              // console.lorg(items);
+
+              // console.log(roomId);
+              // db.database().ref('rooms/' + roomId).set({
               //   id: roomId,
               //   gamestate: 'WAITING',
               //   Users: {
@@ -46,7 +65,7 @@
                 // return room;
             },
             createRoom() {
-                // const r =
+                this.newRoomObj();
             },
             joinRoom() {
             }
