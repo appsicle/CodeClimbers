@@ -1,19 +1,14 @@
 <template>
   <div id="app">
-    <Landing></Landing>
+    <!--<Landing></Landing>-->
+    <Room></Room>
   </div>
 </template>
 
 <script>
 
-
-// Get a reference to the database service
-// let database = firebase.database();
-// console.log(database);
-// console.log("here");
-
-
 import Landing from './components/Landing.vue'
+import Room from './components/Room'
 
 export default {
   // data(){
@@ -23,7 +18,8 @@ export default {
   // },
   name: 'app',
   components: {
-      Landing
+      Landing,
+      Room
   }
 }
 </script>

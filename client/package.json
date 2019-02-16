@@ -9,7 +9,10 @@
   },
   "dependencies": {
     "firebase": "^5.8.3",
-    "vue": "^2.5.22"
+    "ace-editor-on-vue": "^0.1.1",
+    "emmet": "git+https://github.com/cloud9ide/emmet-core.git#41973fcc70392864c7a469cf5dcd875b88b93d4a",
+    "vue": "^2.5.22",
+    "vue2-ace-editor": "0.0.13"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.4.0",
