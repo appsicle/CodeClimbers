@@ -1,47 +1,84 @@
 <template>
     <div class="editor-container">
-        <textarea class="editor" name="" id="" cols="30" rows="10" @input="textEntered" v-model="code">
+        <AceEditor :fontSize="14"
+                   :showPrintMargin="true"
+                   :showGutter="true"
+                   :highlightActiveLine="true"
+                   :readOnly="!canType"
+                   :enableBasicAutocompletion = "true"
+                   :onChange="textEntered"
+                   :value="code"
+                   height="100%"
+                   mode="python"
+                   theme="vibrant_ink"
+        >
 
-        </textarea>
-        {{code}}
+        </AceEditor>
+        <button @click="submitCode">submit</button>
+        {{this.result}}
     </div>
 </template>
 
 <script>
+import brace from 'brace';
+import { Ace as AceEditor } from 'vue2-brace-editor';
 
-export default{
+import 'brace/mode/python';
+import 'brace/theme/monokai';
+import 'brace/theme/xcode';
+import 'brace/theme/vibrant_ink';
+import axios from 'axios';
+
+export default {
     props: ['db', 'uid'],
     data(){
         return {
-            code: '',
+            test: '',
+            canType: true,
+            result: [],
+            code:
+`def f:
+    print('hi')`
         }
     },
-    mounted(){
-        this.db.ref('code').on('child_changed', data=>{
-           console.log(data.val());
-           this.code = data.val();
-        });
+    components: {
+        AceEditor
     },
     methods: {
-        textEntered(){
+        textEntered(value){
+            this.code = value;
+            console.log('text is now'+value);
             this.db.ref('code').update({
                 text: this.code
             });
+        },
+        submitCode(){
+            console.log('submitted')
+            const toSubmit = this.code;
+            axios.post('http://localhost:3000/submit', {
+                qnum: "q2",
+                code: toSubmit
+            }).then(response =>{
+                this.result = response.data;
+                console.log(this.result);
+            }).catch(err=>{
+                console.error(err);
+            })
         }
     },
-
+    mounted(){
+        this.db.ref('code/text').on('value', data=>{
+            console.log(data.val());
+            this.code = data.val();
+        });
+    },
 }
 
 </script>
 
 <style>
-    .editor-container{
-        width: 50%;
-        height: 100%;
-    }
-
-    .editor{
-        width: 100%;
-    }
+.editor-container{
+    height: 80vh;
+}
 
 </style>

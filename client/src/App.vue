@@ -69,10 +69,9 @@
 </script>
 
 <style>
-    * {
-        font-family: Roboto;
+    body{
+        margin: 0;
     }
-
     #app{
         display: flex;
         height: 100%;
