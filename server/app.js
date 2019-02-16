@@ -25,20 +25,15 @@ app.post('/submit', function(req, res){
     qnum = req.body["qnum"];
     var question = questions[qnum];
 
-    // example fdef = "half_num(num)"
-    var fdef = question["fdef"];
-
-    // example testcases = [ [ '1', '1', '1' ], [ '2', '2', '2' ], [ '3', '3', '3' ] ]
+    // example testcases = [ ["1", "4", "2"], ["2", "8", "4"], ["3", "100", "50"] ];
     var testcases = question["tests"];
 
-    // example end_code = "\ninput=input()\nanswer=half_num(input)\nprint(answer)"
-    var end_code = question["end_code"];
-
+    // example execute_test = "\ninput=input()\nanswer=half_num(input)\nprint(answer)"
+    var execute_test = question["end_code"];
     user_code = req.body["code"];
 
     // create test_code to be sent to API
-    var test_code = "def " + fdef + ":\n" + user_code + end_code;
-    console.log(test_code);
+    var test_code = user_code + execute_test;
 
     const promises = testcases.map(word => new Promise(resolve => {
         unirest.post("https://judge0.p.rapidapi.com/submissions?base64_encoded=false&wait=true")
