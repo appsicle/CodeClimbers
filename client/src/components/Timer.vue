@@ -1,6 +1,8 @@
 <template>
     <div>
-        {{time}}
+        <h1>Timer</h1>
+        {{seconds}}
+        {{sTime}}
     </div>
 </template>
 
@@ -8,9 +10,18 @@
     export default{
         data(){
             return {
-                time: 30
+                seconds: 30,
+
             }
+        },
+        props: ['sTime'],
+        watch: {
+          sTime: function(newVal){
+            console.log("here");
+          }
         }
+
+
     }
 
 </script>

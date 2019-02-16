@@ -2,6 +2,7 @@
     <div id="app">
         <Editor :db="db" :uid="userId"></Editor>
         <QD :db="db" :uid="userId"></QD>
+        <Timer :sTime="startTimer"></Timer>
     </div>
 </template>
 
@@ -10,6 +11,7 @@
 
     import Editor from './components/Editor'
     import QD from './components/QuestionDisplay'
+    import Timer from './components/Timer'
 
     export default {
         data(){
@@ -22,7 +24,8 @@
         name: 'app',
         components: {
             QD,
-            Editor
+            Editor,
+            Timer
         },
 
         mounted(){
@@ -32,19 +35,20 @@
             db.ref('code/userTwo').onDisconnect().remove();
             db.ref('code').once('value').then(snapshot=>{
                 // console.log(snapshot.val());
-                console.log(snapshot.key);
-                console.log(snapshot.child('userOne').exists());
+                // console.log(snapshot.key);
+                // console.log(snapshot.child('userOne').exists());
                 if(snapshot.val().userOne){ //if a user already exists
                     db.ref('code').update({ //make user Two true
                         userTwo: this.userId
                     });
                     //start 2 timers
+                    console.log("made startTimer true");
                     this.startTimer = true;
                     //display question from our cache
                     //block out text area for player 2
 
                 }else{
-                    console.log('HELLO')
+                    // console.log('HELLO')
                     db.ref('code').update({
                         userOne: this.userId
                     })
