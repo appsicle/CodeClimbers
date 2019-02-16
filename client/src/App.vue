@@ -1,28 +1,34 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Landing></Landing>
   </div>
 </template>
-
+<script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+var config = {
+  apiKey: "AIzaSyBDoJlMgC3W749ra5MsantmhArh-Z2wziw",
+  authDomain: "codeclimbers-1c849.firebaseapp.com",
+  databaseURL: "https://codeclimbers-1c849.firebaseio.com/",
+  storageBucket: "codeclimbers-1c849.appspot.com"
+};
+firebase.initializeApp(config);
+
+// Get a reference to the database service
+// var database = firebase.database();
+
+
+import Landing from './components/Landing.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+      Landing
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+*{
+  font-family: Roboto;
 }
 </style>
