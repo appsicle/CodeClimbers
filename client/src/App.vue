@@ -15,7 +15,8 @@
         data(){
           return {
               db: db,
-              userId: 0
+              userId: 0,
+              startTimer: false,
           }
         },
         name: 'app',
@@ -38,6 +39,7 @@
                         userTwo: this.userId
                     });
                     //start 2 timers
+                    this.startTimer = true;
                     //display question from our cache
                     //block out text area for player 2
 
@@ -65,5 +67,10 @@
 <style>
     * {
         font-family: Roboto;
+    }
+
+    #app{
+        display: flex;
+        height: 100%;
     }
 </style>

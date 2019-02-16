@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="display">
         insert quesiton here
         {{uid}}
     </div>
@@ -15,3 +15,9 @@
         }
     }
 </script>
+
+<style>
+    .display{
+        width: 50%;
+    }
+</style>

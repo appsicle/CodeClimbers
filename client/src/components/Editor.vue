@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <textarea name="" id="" cols="30" rows="10" @input="textEntered" v-model="code">
+    <div class="editor-container">
+        <textarea class="editor" name="" id="" cols="30" rows="10" @input="textEntered" v-model="code">
 
         </textarea>
         {{code}}
@@ -33,3 +33,15 @@ export default{
 }
 
 </script>
+
+<style>
+    .editor-container{
+        width: 50%;
+        height: 100%;
+    }
+
+    .editor{
+        width: 100%;
+    }
+
+</style>
