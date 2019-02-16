@@ -19,5 +19,6 @@
 <style>
     .display{
         width: 50%;
+        font-family: Roboto;
     }
 </style>
