@@ -6,7 +6,6 @@
                    :highlightActiveLine="true"
                    :onChange="textEntered"
                    :value="code"
-                   readOnly = "true"
                    height="100%"
                    width="100%"
                    mode="python"
@@ -16,6 +15,7 @@
         </AceEditor>
         <button class="submit-button" @click="submitCode">Submit</button>
         <button class="submit-button" @click="runCode">Run</button>
+        {{uid}}
     </div>
 </template>
 
@@ -38,17 +38,12 @@ export default {
             code: '',
             runResult: '',
             currentTyper: 0,
-            variable: ''
         }
     },
     components: {
         AceEditor
     },
     methods: {
-        canType(){
-            console.log(this.uid === this.currentTyper);
-            this.variable = this.uid === this.currentTyper;
-        },
         textEntered(value){
             this.code = value;
             this.db.ref('code').update({
@@ -81,12 +76,16 @@ export default {
             }).catch(err=>{
                 console.error(err);
             })
+        },
+        f(event){
+            event.preventDefault();
+            console.log('keydown');
+            return false;
         }
     },
     mounted(){
         this.db.ref('code/current').on('value', snapshot=>{
             this.currentTyper = parseInt(snapshot.val());
-            this.canType();
         });
         this.db.ref('code').update({
             text: ''
@@ -96,6 +95,24 @@ export default {
             this.code = data.val();
         });
     },
+    watch:{
+        currentTyper: function(){
+            console.log('current user changed')
+            // var f = function f(event){
+            //     event.preventDefault();
+            //     console.log('keydown');
+            //     return false;
+            // };
+            if (this.uid !== this.currentTyper){
+                document.querySelector('textarea').addEventListener('keydown', this.f)
+            }else{
+                console.log('we can type')
+                document.querySelector('textarea').removeEventListener('keydown',this.f);
+            }
+        }
+    }
+
+
 }
 
 </script>
