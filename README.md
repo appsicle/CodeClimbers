@@ -43,10 +43,10 @@ node app.js
 
 Now we need to install packages for the front end (Vue)
 
-Navigate to client folder
+Create another instance/tab of terminal and navigate to client folder
 
 ```
-cd ../client
+cd client
 ```
 
 Install packages
