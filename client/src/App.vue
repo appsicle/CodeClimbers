@@ -1,7 +1,7 @@
 <template>
     <div id="app">
 
-        <Timer  :sTime="startTimer" :db="db"></Timer>
+        <Timer  :sTime="startTimer" :db="db" :uid="userId"></Timer>
         <div class="main-container">
             <QD :db="db" :uid="userId" :display="displayQuestion"></QD>
             <Editor :db="db" :uid="userId"></Editor>
