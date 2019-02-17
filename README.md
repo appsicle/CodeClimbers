@@ -34,6 +34,7 @@ Install Node Packages
 ```
 npm install
 ```
+
 Now we need to install packages for the front end (Vue)
 
 Navigate to client folder
@@ -43,8 +44,15 @@ cd ../client
 ```
 
 Install packages
+
 ```
 npm install
+```
+
+Start the server using
+
+```
+npm run serve
 ```
 
 Navigate to http://localhost:8080 to view the application.
