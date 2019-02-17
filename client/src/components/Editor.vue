@@ -176,7 +176,7 @@ export default {
         text-align: center;
         height: 48px;
         width: 160px;
-        background-color: #7b5958d6;
+        background-color: #2e58d2;
         color: white;
         border-radius: 4px;
         font-size: 20px;

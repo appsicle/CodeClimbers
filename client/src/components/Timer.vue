@@ -129,7 +129,9 @@
     }
 
     .header-container {
-        background-color: #a0d3ff78;
+        -webkit-box-shadow: 2px 3px 15px -7px rgba(0,0,0,0.75);
+        -moz-box-shadow: 2px 3px 15px -7px rgba(0,0,0,0.75);
+        box-shadow: 2px 3px 15px -7px rgba(0,0,0,0.75);
         display: flex;
         justify-content: space-between;
         padding: 20px;

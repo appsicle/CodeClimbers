@@ -1,14 +1,8 @@
 <template>
-    <!--<div class="landing-div">-->
-    <!--<button class="create-room" @click="createRoom">Create Room</button><br />-->
-    <!--Room Id:-->
-    <!--<input v-model = "rooomid"type="text">-->
-
-    <!--<button class="join-button" @click="joinRoom">Submit</button>-->
-    <!--</div>-->
     <v-app>
-
         <div class="landing-div">
+            <img class="mountain" src="../assets/mountain4.jpg" alt="">
+
             <v-text-field
                     v-if="this.reveal"
                     v-model="rooomid"
@@ -79,5 +73,10 @@
         border: 1px solid #d0cdcd;
         font-size: 20px;
         border-radius: 4px;
+    }
+    .mountain{
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -120%);
     }
 </style>
