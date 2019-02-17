@@ -6,7 +6,7 @@
         <div style="height: 100vh" v-else>
           <Timer @startTime= "startTime"@displayQuest="displayQuest":sTime="startTimer" :db="db" :uid="userId" :rid="roomId"></Timer>
           <div class="main-container">
-              <QD :db="db" :uid="userId" :display="displayQuestion"></QD>
+              <QD :db="db" :uid="userId" :display="displayQuestion" :rid="roomId"></QD>
               <Editor :db="db" :uid="userId" :rid="roomId"></Editor>
           </div>
           <div style="background-color: #e8e8e8; height: 9%"></div>
@@ -46,7 +46,7 @@
             this.userId = randomInt;
             var randomRoomId = parseInt(Math.random()*1000000)
             this.roomId = randomRoomId;
-            
+
         },
         destroyed(){
             // this.cleardb();

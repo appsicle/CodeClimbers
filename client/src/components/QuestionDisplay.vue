@@ -13,7 +13,7 @@
 
 <script>
     export default {
-        props: ['db', 'uid', 'display'],
+        props: ['db', 'uid', 'display', 'rid'],
         data() {
             return {
                 recent: {
@@ -114,13 +114,13 @@
                 this.selected = temp;
                 this.recent = temp;
                 //push selected to firebase
-                this.db.ref('code').update({
+                this.db.ref(this.rid).update({
                     selected: this.selected
                 });
 
-                this.db.ref('code/selected').once('value', snapshot=>{
+                this.db.ref(this.rid + '/selected').once('value', snapshot=>{
                     console.log('hello');
-                    this.db.ref('code').update({
+                    this.db.ref(this.rid).update({
                         text: snapshot.val().definition
                     });
                 })
@@ -137,8 +137,8 @@
             }
         },
         mounted(){
-            this.db.ref('code/selected').remove();
-            this.db.ref('code/selected').on('value', snapshot=>{
+            this.db.ref(this.rid + '/selected').remove();
+            this.db.ref(this.rid + '/selected').on('value', snapshot=>{
                 this.selected = snapshot.val();
             });
 
