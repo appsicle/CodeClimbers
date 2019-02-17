@@ -1,7 +1,7 @@
 <template>
     <div class="header-container">
         <p id="logo">CODE CLIMBERS</p>
-        <p>User {{currentUser}}'s Turn!</p>
+        <p>{{currentUser === uid ? "Your" : "Their"}} Turn!</p>
         <p>00:0{{seconds}}</p>
     </div>
 
@@ -20,7 +20,7 @@
                 user2: 0
             }
         },
-        props: ['db', 'sTime'],
+        props: ['db', 'sTime','uid'],
         methods: {
             startTime: function () {
                 if (this.currentUser == this.user1) {
