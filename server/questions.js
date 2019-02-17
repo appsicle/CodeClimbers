@@ -20,7 +20,7 @@ var q2_end_code = "\ninput=input()\nanswer=smallest(input)\nprint(answer)";
     Problem: Return a reversed version of the string inputted.
     Example: reverse("Hello") => "olleH"
  */
-var q3 = [["1","\"Hello\"","\"olleH\""],["2","\"racecar\"","\"racecar\""],["3","\"corgi\"","\"igroc\""]];
+var q3 = [["1","\"Hello\"","olleH"],["2","\"racecar\"","racecar"],["3","\"corgi\"","igroc"]];
 var q3_end_code = "\ninput=input()\nanswer=reverse(input)\nprint(answer)";
 
 /*
@@ -28,7 +28,7 @@ var q3_end_code = "\ninput=input()\nanswer=reverse(input)\nprint(answer)";
     Problem: Return first unique character in a string.
     Example: reverse("bibliography") => "l"
  */
-var q4 = [["1","\"bibliography\"","\"l\""],["2","\"racecar\"","\"e\""],["3","\"abcdezyabcde\"","\"z\""]];
+var q4 = [["1","\"bibliography\"","l"],["2","\"racecar\"","e"],["3","\"abcdezyabcde\"","z"]];
 var q4_end_code = "\ninput=input()\nanswer=first_unique(input)\nprint(answer)";
 
 module.exports = { q1: {"tests": q1, "end_code": q1_end_code},
