@@ -2,7 +2,7 @@
     <div class="header-container">
         <p id="logo">CODE CLIMBERS</p>
         <p>User {{currentUser}}'s Turn!</p>
-        <p>00:0{{seconds}}</p>
+        <p>{{parseInt(seconds) > 9 ? '00:'+seconds : '00:0'+seconds}}</p>
     </div>
 
 </template>
