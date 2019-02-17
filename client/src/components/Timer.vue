@@ -1,7 +1,6 @@
 <template>
     <div class="header-container">
         <p id="logo">CODE CLIMBERS</p>
-        {{rid}}
         <p>{{currentUser === uid ? "Your" : "Their"}} Turn!</p>
         <p>{{parseInt(seconds) > 9 ? '00:'+seconds : '00:0'+seconds}}</p>
     </div>

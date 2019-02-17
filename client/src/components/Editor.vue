@@ -17,12 +17,6 @@
             <button class="submit-button" @click="runCode">Run</button>
             <button class="submit-button" @click="submitCode">Submit</button>
         </div>
-        <!--<div class="result-box" v-if="result.length">-->
-            <!--<p>Result</p>-->
-            <!--<p v-for="res in result">{{res}}</p>-->
-        <!--</div>-->
-        <button @click="onSuccess">success</button>
-        <button @click="onFail">fail</button>
 
     </div>
 </template>
@@ -122,11 +116,12 @@ export default {
                 }).then(response => {
                     this.result = [];
                     this.runResult = response.data;
+                    this.onRun();
                     console.log(this.runResult);
                 }).catch(err => {
                     console.error(err);
                 });
-                this.onRun();
+
             },
             f(event) {
                 event.preventDefault();

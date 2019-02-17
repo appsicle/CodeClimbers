@@ -1,36 +1,83 @@
 <template>
-    <div>
-      <button v-on:click="createRoom">Create Room</button><br />
-      Room Id:
-      <input v-model = "rooomid"type="text">
+    <!--<div class="landing-div">-->
+    <!--<button class="create-room" @click="createRoom">Create Room</button><br />-->
+    <!--Room Id:-->
+    <!--<input v-model = "rooomid"type="text">-->
 
-      <button @click="joinRoom">Submit</button>
-    </div>
+    <!--<button class="join-button" @click="joinRoom">Submit</button>-->
+    <!--</div>-->
+    <v-app>
+
+        <div class="landing-div">
+            <v-text-field
+                    v-if="this.reveal"
+                    v-model="rooomid"
+                    label="ID to Join Room"
+                    outline
+            ></v-text-field>
+            <v-btn v-if="!this.reveal" flat color="primary" @click="createRoom" class="create-room text-capitalize">
+                Create Room
+            </v-btn>
+            <v-btn v-if="this.reveal" flat color="warning" @click="back" class="join-button text-capitalize">Back</v-btn>
+
+            <v-btn flat color="primary" @click="joinRoom" class="join-button text-capitalize">Join Room</v-btn>
+        </div>
+
+    </v-app>
 </template>
 
 <script>
-export default {
-  data(){
-    return{
-      rooomid: 0
-    }
-  },
-  methods: {
-    createRoom: function(){
-      this.$emit('created', 'room');
-    },
-    joinRoom: function(){
-      this.$emit('joined', this.rooomid);
-    }
-  }
+    export default {
+        data() {
+            return {
+                rooomid: '',
+                reveal: false
+            }
+        },
+        methods: {
+            createRoom: function () {
+                this.$emit('created', 'room');
+            },
+            joinRoom: function () {
+                if (this.rooomid) {
+                    this.$emit('joined', parseInt(this.rooomid));
+                } else {
+                    this.reveal = true;
+                }
 
-}
+            },
+            back() {
+                this.reveal = false;
+            }
+        }
+
+    }
 
 </script>
 
-<style scoped>
-    div{
-        /* background-color: blue; */
-        /* height: 10%; */
+<style>
+
+    .landing-div {
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .create-room {
+        height: 48px;
+        width: 200px;
+        border: 1px solid #d0cdcd;
+        font-size: 20px;
+        border-radius: 4px;
+    }
+
+    .join-button {
+        height: 48px;
+        width: 200px;
+        border: 1px solid #d0cdcd;
+        font-size: 20px;
+        border-radius: 4px;
     }
 </style>

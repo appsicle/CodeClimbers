@@ -91,4 +91,5 @@
         display: flex;
         height: 80%;
     }
+
 </style>

@@ -4,10 +4,8 @@
             <h1 >{{selected.title}}</h1>
             <p v-if="display">Difficulty: {{selected.difficulty}}</p>
         </div>
-        <!-- <p2 v-if="selected">{{selected.description}}</p2> -->
-        <!-- <p2 v-if="selected">{{selected.description}}</p2> -->
         <p v-if="selected"><span v-html="selected.description"></span></p>
-        <!-- <p2> </p2> -->
+        <p class="room-number">Room # {{rid}}</p>
     </div>
 </template>
 
@@ -161,5 +159,11 @@
     }
     div p{
         margin: 0;
+    }
+
+    .room-number{
+        position: absolute;
+        bottom: 20px;
+        font-size: 24px;
     }
 </style>
