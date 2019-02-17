@@ -1,10 +1,8 @@
 <template>
     <div>
-        <button @click="startTime">start</button>
         <h1>Timer</h1>
         <h2>Current Typer: {{currentUser}}</h2>
         {{seconds}}
-        <!-- {{sTime}} -->
     </div>
 </template>
 
@@ -15,9 +13,9 @@
             return {
                 seconds: '',
                 timer: '',
-                currentUser: '',
-                user1:'',
-                user2:''
+                currentUser: 0,
+                user1:0,
+                user2:0
             }
         },
         props: ['db','sTime'],
@@ -46,7 +44,7 @@
         },
         mounted(){
           db.ref('code').update({
-            time: 10
+            time: 15
           });
           db.ref('code').update({
             current:""
@@ -91,3 +89,12 @@
     }
 
 </script>
+
+<style scoped>
+    div{
+        border: 1px solid black;
+    }
+    *{
+        margin: 0;
+    }
+</style>

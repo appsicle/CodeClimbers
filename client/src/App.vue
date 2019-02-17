@@ -1,8 +1,12 @@
 <template>
     <div id="app">
-        <Editor :db="db" :uid="userId"></Editor>
-        <QD :db="db" :uid="userId"></QD>
+
         <Timer :sTime="startTimer" :db="db"></Timer>
+        <div class="main-container">
+            <QD :db="db" :uid="userId" :display="displayQuestion"></QD>
+            <Editor :db="db" :uid="userId"></Editor>
+        </div>
+
     </div>
 </template>
 
@@ -19,6 +23,7 @@
               db: db,
               userId: 0,
               startTimer: false,
+              displayQuestion: 'false'
           }
         },
         name: 'app',
@@ -44,6 +49,7 @@
                     //start 2 timers
                     console.log("made startTimer true");
                     this.startTimer = true;
+                    this.displayQuestion = true;
                     //display question from our cache
                     //block out text area for player 2
 
@@ -62,7 +68,8 @@
             cleardb(){
                 db.ref('code').child('userOne').remove();
                 db.ref('code').child('userTwo').remove();
-            }
+            },
+
         }
 
     }
@@ -73,7 +80,10 @@
         margin: 0;
     }
     #app{
-        display: flex;
         height: 100%;
+    }
+
+    .main-container{
+        display: flex;
     }
 </style>

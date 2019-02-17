@@ -6,7 +6,7 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// example questions = { q1: {"tests": q1, "end_code": q1_end_code, "fdef": q1_fdef} }
+// example questions = { q1: {"tests": q1, "end_code": q1_end_code} }
 var questions = require("./questions.js")
 
 app.use(function(req, res, next) {
@@ -16,10 +16,39 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.get('/', function(req, res){
-    res.sendFile(__dirname +'/test.html')
+// for just running code
+app.post('/run', function(req, res){
+    user_code = req.body["code"];
+
+    const promise = new Promise(resolve => {
+        unirest.post("https://judge0.p.rapidapi.com/submissions?base64_encoded=false&wait=true")
+            .header("X-RapidAPI-Key", "2e65021f69msh1665e207d8e1ae1p1938f4jsn20ec921d7928")
+            .header("Content-Type", "application/json")
+            .send({
+                "source_code": user_code,
+                "language_id": "37",
+            })
+            .end(function (result) {
+                var result = result.body;
+                var output = "";
+                if (result["status"]["description"] === "Accepted"){
+                    output = result["stdout"];
+                }
+                else{
+                    output = result["stderr"];
+                }
+
+                resolve(output);
+            });
+    });
+
+    promise.then(output => {
+        console.log(output);
+        res.send(output);
+    });
 });
 
+// for submitting and running testcases
 app.post('/submit', function(req, res){
     // example qnum = "q1"
     qnum = req.body["qnum"];
@@ -71,7 +100,7 @@ app.post('/submit', function(req, res){
 
     // interpret results from testcases
     Promise.all(promises).then(results => {
-        console.log(results)
+        console.log(results);
         var pass = 0;
         for(var i = 0; i < results.length; i++){
             if (results[i]["P/F"] === "Passed"){

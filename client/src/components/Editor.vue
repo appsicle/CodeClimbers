@@ -1,21 +1,21 @@
 <template>
     <div class="editor-container">
-        <AceEditor :fontSize="14"
+        <AceEditor :fontSize="20"
                    :showPrintMargin="true"
                    :showGutter="true"
                    :highlightActiveLine="true"
-                   :readOnly="!canType"
-                   :enableBasicAutocompletion = "true"
                    :onChange="textEntered"
                    :value="code"
+                   readOnly = "true"
                    height="100%"
+                   width="100%"
                    mode="python"
                    theme="vibrant_ink"
         >
 
         </AceEditor>
-        <button @click="submitCode">submit</button>
-        {{this.result}}
+        <button class="submit-button" @click="submitCode">Submit</button>
+        <button class="submit-button" @click="runCode">Run</button>
     </div>
 </template>
 
@@ -34,29 +34,35 @@ export default {
     data(){
         return {
             test: '',
-            canType: true,
             result: [],
-            code:
-`def f:
-    print('hi')`
+            code: '',
+            runResult: '',
+            currentTyper: 0,
+            variable: ''
         }
     },
     components: {
         AceEditor
     },
     methods: {
+        canType(){
+            console.log(this.uid === this.currentTyper);
+            this.variable = this.uid === this.currentTyper;
+        },
         textEntered(value){
             this.code = value;
-            console.log('text is now'+value);
             this.db.ref('code').update({
                 text: this.code
             });
         },
         submitCode(){
-            console.log('submitted')
+            var qnum;
+            this.db.ref('code/selected').once('value', snapshot=>{
+                qnum = snapshot.val().qnum;
+            });
             const toSubmit = this.code;
             axios.post('http://localhost:3000/submit', {
-                qnum: "q2",
+                qnum: qnum,
                 code: toSubmit
             }).then(response =>{
                 this.result = response.data;
@@ -64,9 +70,27 @@ export default {
             }).catch(err=>{
                 console.error(err);
             })
+        },
+        runCode(){
+            const toRun = this.code;
+            axios.post('http://localhost:3000/run', {
+                code: toRun
+            }).then(response =>{
+                this.runResult = response.data;
+                console.log(this.runResult);
+            }).catch(err=>{
+                console.error(err);
+            })
         }
     },
     mounted(){
+        this.db.ref('code/current').on('value', snapshot=>{
+            this.currentTyper = parseInt(snapshot.val());
+            this.canType();
+        });
+        this.db.ref('code').update({
+            text: ''
+        });
         this.db.ref('code/text').on('value', data=>{
             console.log(data.val());
             this.code = data.val();
@@ -79,6 +103,25 @@ export default {
 <style>
 .editor-container{
     height: 80vh;
+    width: 100%;
+}
+.submit-button{
+    font-family: Roboto;
+    text-align: center;
+    border: 1px solid black;
+    height: 36px;
+    width: 120px;
+    background-color: rgb(69, 90, 100);;
+    color: white;
+    border-radius: 4px;
+    font-size: 14px;
+    -webkit-box-shadow: -1px 0px 14px -4px rgba(0,0,0,0.75);
+    -moz-box-shadow: -1px 0px 14px -4px rgba(0,0,0,0.75);
+    box-shadow: -1px 0px 14px -4px rgba(0,0,0,0.75);
 }
 
+.submit-button:hover{
+    opacity: .8;
+    cursor: pointer;
+}
 </style>
