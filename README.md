@@ -35,6 +35,12 @@ Install Node Packages
 npm install
 ```
 
+Run the backend server using the command
+
+```
+node app.js
+```
+
 Now we need to install packages for the front end (Vue)
 
 Navigate to client folder
