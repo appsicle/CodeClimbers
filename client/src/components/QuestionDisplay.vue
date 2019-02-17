@@ -2,9 +2,9 @@
     <div class="display">
         <div v-if="selected">
             <h1 >{{selected.title}}</h1>
-            <p v-if="display">Difficulty: {{selected.difficulty}}</p>
+            <p v-if="display" class="helper-text" style="font-style: italic">Difficulty: {{selected.difficulty}}</p>
         </div>
-        <p v-if="selected"><span v-html="selected.description"></span></p>
+        <p v-if="selected"><span class="helper-text" v-html="selected.description"></span></p>
         <p class="room-number">Room # {{rid}}</p>
     </div>
 </template>
@@ -47,7 +47,7 @@
                         description: `Return the Smallest Element in Array<br>
                                       Given an unsorted array of integers, return the smallest element in the array.<br><br>
 
-                                      Restrictions:<br>
+                                      <strong>Restrictions:</strong><br>
                                         Must be done without using standard library functions.<br><br>
 
                                       Don't think too hard about it.<br><br>
@@ -67,7 +67,7 @@
                                       Your function takes a single parameter s as an array of chars.<br>
                                       You are required to return the string reversed.<br><br>
 
-                                      Restrictions:<br>
+                                      <strong>Restrictions:</strong><br>
                                         Must be done in O(1) extra space.<br>
                                       Can you do it in one line?<br><br>
 
@@ -86,7 +86,7 @@
                         description: `Find the First Unique Element<br>
                                       Given an array of chars, return the first unique character in the string<br><br>
 
-                                      Restrictions:<br>
+                                      <strong>Restrictions:</strong><br>
                                         Must be done in O(n) time<br><br>
 
                                       "I can do it in 2 lines, but can you do it in 5? -Pattis"<br><br>
@@ -164,6 +164,10 @@
     .room-number{
         position: absolute;
         bottom: 20px;
+        font-size: 24px;
+    }
+
+    .helper-text{
         font-size: 24px;
     }
 </style>

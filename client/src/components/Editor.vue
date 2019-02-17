@@ -129,6 +129,12 @@ export default {
             f(event) {
                 event.preventDefault();
                 console.log('keydown');
+                this.$swal({
+                    titleText: 'It is not your turn!',
+                    type: 'warning',
+                    timer: 1000,
+                    showConfirmButton: false
+                });
                 return false;
             }
         },

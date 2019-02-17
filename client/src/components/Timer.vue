@@ -1,8 +1,7 @@
 <template>
     <div class="header-container">
         <p id="logo">CODE CLIMBERS</p>
-        <p>{{currentUser === uid ? "Your" : "Their"}} Turn!</p>
-        <p>{{parseInt(seconds) > 9 ? '00:'+seconds : '00:0'+seconds}}</p>
+        <p>{{currentUser === uid ? "Your" : "Their"}} turn for {{parseInt(seconds) > 9 ? '00:'+seconds : '00:0'+seconds}}</p>
     </div>
 
 </template>
