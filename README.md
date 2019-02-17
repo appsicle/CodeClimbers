@@ -14,6 +14,8 @@ What things you need to install the software and how to install them
 npm
 
 node.js
+
+2 browser windows or 2 computers
 ```
 
 ### Installing
@@ -45,9 +47,12 @@ Install packages
 npm install
 ```
 
+Navigate to http://localhost:8080 to view the application.
+
 
 ## Built With
 
 * [Vue.js](https://vuejs.org/) - The web framework used
 * [Node.js](https://nodejs.org/en/) - The backend framework used
+* [Firebase](https://firebase.google.com/) - The database used
 * [judge0](https://judge0.com/) - Api used to compile code
