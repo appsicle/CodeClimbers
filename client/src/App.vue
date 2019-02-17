@@ -2,7 +2,7 @@
     <div id="app">
         <Editor :db="db" :uid="userId"></Editor>
         <QD :db="db" :uid="userId"></QD>
-        <Timer :sTime="startTimer"></Timer>
+        <Timer :sTime="startTimer" :db="db"></Timer>
     </div>
 </template>
 
