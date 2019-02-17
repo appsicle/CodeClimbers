@@ -15,10 +15,14 @@
     "firebase": "^5.8.3",
     "firebase-admin": "^7.0.0",
     "firebase-functions": "^2.2.0",
+    "sweetalert2": "^8.0.7",
     "vue": "^2.5.22",
     "vue-router": "^3.0.2",
+    "vue-sweetalert2": "^1.6.4",
     "vue2-ace-editor": "0.0.13",
-    "vue2-brace-editor": "^2.0.2"
+    "vue2-brace-editor": "^2.0.2",
+    "vue2-simplert": "^1.0.0",
+    "vuetify": "^1.5.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.4.0",
