@@ -13,7 +13,7 @@
     export default{
         data(){
             return {
-                seconds: 30,
+                seconds: '',
                 timer: '',
                 currentUser: '',
                 user1:'',
