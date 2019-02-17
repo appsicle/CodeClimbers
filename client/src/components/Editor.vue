@@ -116,6 +116,9 @@ export default {
                 }).then(response => {
                     this.result = [];
                     this.runResult = response.data;
+                    if(parseInt(this.runResult) === 0){
+                        this.runResult = "0"
+                    }
                     this.onRun();
                     console.log(this.runResult);
                 }).catch(err => {
