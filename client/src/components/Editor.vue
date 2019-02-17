@@ -36,7 +36,7 @@ import 'brace/theme/tomorrow_night_eighties'
 import axios from 'axios';
 
 export default {
-    props: ['db', 'uid'],
+    props: ['db', 'uid', 'rid'],
     data(){
         return {
             test: '',
@@ -52,13 +52,13 @@ export default {
     methods: {
         textEntered(value){
             this.code = value;
-            this.db.ref('code').update({
+            this.db.ref(this.rid).update({
                 text: this.code
             });
         },
         submitCode(){
             var qnum;
-            this.db.ref('code/selected').once('value', snapshot=>{
+            this.db.ref(this.rid + '/selected').once('value', snapshot=>{
                 qnum = snapshot.val().qnum;
             });
             const toSubmit = this.code;
@@ -109,13 +109,13 @@ export default {
         }
     },
     mounted(){
-        this.db.ref('code/current').on('value', snapshot=>{
+        this.db.ref(this.rid + '/current').on('value', snapshot=>{
             this.currentTyper = parseInt(snapshot.val());
         });
-        this.db.ref('code').update({
+        this.db.ref(this.rid).update({
             text: ''
         });
-        this.db.ref('code/text').on('value', data=>{
+        this.db.ref(this.rid + '/text').on('value', data=>{
             console.log(data.val());
             this.code = data.val();
         });

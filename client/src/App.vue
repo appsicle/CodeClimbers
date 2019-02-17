@@ -1,12 +1,16 @@
 <template>
     <div id="app">
-
-        <Timer  :sTime="startTimer" :db="db" :uid="userId"></Timer>
-        <div class="main-container">
-            <QD :db="db" :uid="userId" :display="displayQuestion"></QD>
-            <Editor :db="db" :uid="userId"></Editor>
+        <div v-if="di === 'joinPage'">
+          <JoinPage @created="createRoomFunc" @joined="joinRoomFunc"></JoinPage>
         </div>
-        <div style="background-color: #e8e8e8; height: 9%"></div>
+        <div style="height: 100vh" v-else>
+          <Timer @startTime= "startTime"@displayQuest="displayQuest":sTime="startTimer" :db="db" :uid="userId" :rid="roomId"></Timer>
+          <div class="main-container">
+              <QD :db="db" :uid="userId" :display="displayQuestion"></QD>
+              <Editor :db="db" :uid="userId" :rid="roomId"></Editor>
+          </div>
+          <div style="background-color: #e8e8e8; height: 9%"></div>
+        </div>
     </div>
 </template>
 
@@ -16,6 +20,7 @@
     import Editor from './components/Editor'
     import QD from './components/QuestionDisplay'
     import Timer from './components/Timer'
+    import JoinPage from './components/JoinPage'
 
     export default {
         data(){
@@ -23,52 +28,50 @@
               db: db,
               userId: 0,
               startTimer: false,
-              displayQuestion: 'false'
+              displayQuestion: 'false',
+              roomId: 0,
+              di: "joinPage"
           }
         },
         name: 'app',
         components: {
             QD,
             Editor,
-            Timer
+            Timer,
+            JoinPage
         },
 
         mounted(){
             var randomInt = parseInt(Math.random()*10000);
             this.userId = randomInt;
-            db.ref('code/userOne').onDisconnect().remove();
-            db.ref('code/userTwo').onDisconnect().remove();
-            db.ref('code').once('value').then(snapshot=>{
-                // console.log(snapshot.val());
-                // console.log(snapshot.key);
-                // console.log(snapshot.child('userOne').exists());
-                if(snapshot.val().userOne){ //if a user already exists
-                    db.ref('code').update({ //make user Two true
-                        userTwo: this.userId
-                    });
-                    //start 2 timers
-                    console.log("made startTimer true");
-                    this.startTimer = true;
-                    this.displayQuestion = true;
-                    //display question from our cache
-                    //block out text area for player 2
-
-                }else{
-                    // console.log('HELLO')
-                    db.ref('code').update({
-                        userOne: this.userId
-                    })
-                }
-            });
+            var randomRoomId = parseInt(Math.random()*1000000)
+            this.roomId = randomRoomId;
+            
         },
         destroyed(){
-            cleardb();
+            // this.cleardb();
         },
         methods: {
             cleardb(){
                 db.ref('code').child('userOne').remove();
                 db.ref('code').child('userTwo').remove();
             },
+            createRoomFunc(data){
+              this.di = data
+            },
+            joinRoomFunc(data){
+
+              this.roomId = data
+              this.createRoomFunc(data);
+            },
+            displayQuest(data){
+              // console.log(data);
+              this.displayQuestion = true;
+            },
+            startTime(data){
+              this.startTimer = true;
+            }
+
 
         }
 
