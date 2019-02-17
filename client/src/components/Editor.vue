@@ -1,6 +1,6 @@
 <template>
     <div class="editor-container">
-        <AceEditor :fontSize="20"
+        <AceEditor :fontSize="18"
                    :showPrintMargin="true"
                    :showGutter="true"
                    :highlightActiveLine="true"
@@ -9,13 +9,21 @@
                    height="100%"
                    width="100%"
                    mode="python"
-                   theme="vibrant_ink"
+                   theme="tomorrow_night_eighties"
         >
 
         </AceEditor>
-        <button class="submit-button" @click="submitCode">Submit</button>
-        <button class="submit-button" @click="runCode">Run</button>
-        {{uid}}
+        <div class="button-container">
+            <button class="submit-button" @click="runCode">Run</button>
+            <button class="submit-button" @click="submitCode">Submit</button>
+        </div>
+        <div class="result-box" v-if="result.length">
+            <p>Result</p>
+            <p v-for="res in result">{{res}}</p>
+        </div>
+        <div v-if="runResult">
+            {{runResult}}
+        </div>
     </div>
 </template>
 
@@ -24,9 +32,7 @@ import brace from 'brace';
 import { Ace as AceEditor } from 'vue2-brace-editor';
 
 import 'brace/mode/python';
-import 'brace/theme/monokai';
-import 'brace/theme/xcode';
-import 'brace/theme/vibrant_ink';
+import 'brace/theme/tomorrow_night_eighties'
 import axios from 'axios';
 
 export default {
@@ -60,8 +66,26 @@ export default {
                 qnum: qnum,
                 code: toSubmit
             }).then(response =>{
-                this.result = response.data;
-                console.log(this.result);
+                this.result = [];
+                this.runResult = '';
+                var res = response.data;
+                for(var i = 0; i < res.length; ++i){
+                    var testcase_num = i+1;
+                    var info = "Testcase #" + testcase_num + ": " + res[i]['P/F'];
+                    this.result.push(info);
+                    console.log(this.result)
+                    if(res[i]['P/F'] === "Failed"){
+                        if(res[i]['ErrorMessage'] === null){
+                            this.result.push("Input: " + res[i]["input"]);
+                            this.result.push("Expected Output: " + res[i]["expected_output"]);
+                            this.result.push("Actual Output: " + res[i]["output"]);
+                        }
+                        else{
+                            this.result.push(res[i]["ErrorMessage"]);
+                        }
+                        break;
+                    }
+                }
             }).catch(err=>{
                 console.error(err);
             })
@@ -71,6 +95,7 @@ export default {
             axios.post('http://localhost:3000/run', {
                 code: toRun
             }).then(response =>{
+                this.result = [];
                 this.runResult = response.data;
                 console.log(this.runResult);
             }).catch(err=>{
@@ -98,11 +123,6 @@ export default {
     watch:{
         currentTyper: function(){
             console.log('current user changed')
-            // var f = function f(event){
-            //     event.preventDefault();
-            //     console.log('keydown');
-            //     return false;
-            // };
             if (this.uid !== this.currentTyper){
                 document.querySelector('textarea').addEventListener('keydown', this.f)
             }else{
@@ -119,19 +139,24 @@ export default {
 
 <style>
 .editor-container{
-    height: 80vh;
     width: 100%;
+}
+
+.button-container{
+    display: flex;
+    justify-content: flex-end;
 }
 .submit-button{
     font-family: Roboto;
+    transform: translateY(30%);
+    margin: 0 15px;
     text-align: center;
-    border: 1px solid black;
-    height: 36px;
-    width: 120px;
-    background-color: rgb(69, 90, 100);;
+    height: 48px;
+    width: 160px;
+    background-color: #7b5958d6;
     color: white;
     border-radius: 4px;
-    font-size: 14px;
+    font-size: 20px;
     -webkit-box-shadow: -1px 0px 14px -4px rgba(0,0,0,0.75);
     -moz-box-shadow: -1px 0px 14px -4px rgba(0,0,0,0.75);
     box-shadow: -1px 0px 14px -4px rgba(0,0,0,0.75);
@@ -140,5 +165,15 @@ export default {
 .submit-button:hover{
     opacity: .8;
     cursor: pointer;
+}
+
+.result-box{
+    font-family: Roboto;
+    position: absolute;
+    left: 0;
+    top: 40%;
+}
+.result-box p{
+    padding: 0 20px;
 }
 </style>

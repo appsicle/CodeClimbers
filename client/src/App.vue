@@ -1,12 +1,12 @@
 <template>
     <div id="app">
 
-        <Timer :sTime="startTimer" :db="db"></Timer>
+        <Timer  :sTime="startTimer" :db="db"></Timer>
         <div class="main-container">
             <QD :db="db" :uid="userId" :display="displayQuestion"></QD>
             <Editor :db="db" :uid="userId"></Editor>
         </div>
-
+        <div style="background-color: #e8e8e8; height: 9%"></div>
     </div>
 </template>
 
@@ -80,10 +80,12 @@
         margin: 0;
     }
     #app{
-        height: 100%;
+        height: 100vh;
+
     }
 
     .main-container{
         display: flex;
+        height: 80%;
     }
 </style>
