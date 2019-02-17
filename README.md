@@ -1,4 +1,4 @@
-# Project Title
+# CodeClimbers
 
 CodeClimbers allows a user to team up with a friend to solve common programming questions. Users have the option to create a room or join a room using a code! It allows for two users to be in the same coding room and type in the same editor. The catch is, only one use can type in the editor at a time. This ensures that each user gets a turn at typing and prevents one user from overpowering another user (like what can happen in a normal pair programming situation). The timer is displayed on screen that signals when the switch is about to happen. Also on screen is whose turn it is. During the experience, the users can both run the code and see the output or error messages (using the run button). When they believe that their solution works, they may submit their code (using the submit button), and their code will be sent through a few hidden test cases before sending the users some feedback on how they did!
 
