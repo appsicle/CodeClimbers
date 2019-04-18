@@ -22,7 +22,7 @@ app.post('/run', function(req, res){
 
     const promise = new Promise(resolve => {
         unirest.post("https://judge0.p.rapidapi.com/submissions?base64_encoded=false&wait=true")
-            .header("X-RapidAPI-Key", "2e65021f69msh1665e207d8e1ae1p1938f4jsn20ec921d7928")
+            .header("X-RapidAPI-Key", "")
             .header("Content-Type", "application/json")
             .send({
                 "source_code": user_code,
@@ -66,7 +66,7 @@ app.post('/submit', function(req, res){
 
     const promises = testcases.map(word => new Promise(resolve => {
         unirest.post("https://judge0.p.rapidapi.com/submissions?base64_encoded=false&wait=true")
-            .header("X-RapidAPI-Key", "2e65021f69msh1665e207d8e1ae1p1938f4jsn20ec921d7928")
+            .header("X-RapidAPI-Key", "")
             .header("Content-Type", "application/json")
             .send({
                 "source_code": test_code,
